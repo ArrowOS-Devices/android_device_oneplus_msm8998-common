@@ -678,4 +678,7 @@
 
     <!-- Whether the device has fingeprint sensor or not -->
     <bool name="config_hasFingerprintSensor">true</bool>
+
+    <!-- True if the firmware supports Wi-Fi link probing -->
+    <bool name="config_wifi_link_probing_supported">true</bool>
 </resources>
