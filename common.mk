@@ -352,7 +352,8 @@ PRODUCT_PACKAGES += \
 
 # Privapp Whitelist
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml
+    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml \
+    $(LOCAL_PATH)/configs/product-privapp-permissions-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/product-privapp-permissions-qti.xml
 
 # Pocketmode
 PRODUCT_PACKAGES += \
@@ -397,10 +398,10 @@ PRODUCT_PACKAGES += \
     libxml2 \
     libprotobuf-cpp-full
 
+# IMS
 PRODUCT_PACKAGES += \
     ims-ext-common \
-    telephony-ext
-
+    telephony-ext \
 PRODUCT_BOOT_JARS += \
     telephony-ext
 
