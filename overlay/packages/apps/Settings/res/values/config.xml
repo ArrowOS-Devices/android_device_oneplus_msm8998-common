@@ -28,10 +28,6 @@
   -->
   <integer name="config_fingerprintSensorLocation">1</integer>
 
-    <!-- Whether to show Connected MAC Randomization in Developer Options
-         as not all devices can support dynamic MAC address change.  -->
-    <bool name="config_wifi_support_connected_mac_randomization">true</bool>
-
     <!-- Device specific doze package -->
     <string name="config_customDozePackage">com.cyanogenmod.settings.doze/com.cyanogenmod.settings.doze.DozeSettings</string>
 </resources>
