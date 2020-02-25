@@ -86,6 +86,9 @@ vendor.vidc.debug.level=1
 # QCOM
 ro.vendor.qti.va_aosp.support=1
 
+# Perf
+ro.vendor.extension_library=libqti-perfd-client.so
+
 # RIL
 persist.vendor.radio.add_power_save=1
 persist.vendor.radio.aosp_usr_pref_sel=true
