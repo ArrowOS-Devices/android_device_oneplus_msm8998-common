@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2020 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2019 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -39,11 +39,7 @@
 #include <semaphore.h>
 #include <loc_pla.h>
 #include <loc_cfg.h>
-#ifdef NO_UNORDERED_SET_OR_MAP
-    #include <map>
-#else
-    #include <unordered_map>
-#endif
+#include <unordered_map>
 
 #include <LocationClientApi.h>
 #include <LocationIntegrationApi.h>
@@ -69,8 +65,6 @@ static sem_t sem_pingcbreceived;
 #define MULTI_CONFIG_SV    "multiConfigSV"
 #define DELETE_ALL         "deleteAll"
 #define CONFIG_LEVER_ARM   "configLeverArm"
-#define CONFIG_ROBUST_LOCATION  "configRobustLocation"
-#define GET_ROBUST_LOCATION_CONFIG "getRobustLocationConfig"
 
 // debug utility
 static uint64_t getTimestamp() {
@@ -185,12 +179,6 @@ static void onConfigResponseCb(location_integration::LocConfigTypeEnum    reques
     printf("<<< onConfigResponseCb, type %d, err %d\n", requestType, response);
 }
 
-static void onGetRobustLocationConfigCb(RobustLocationConfig robustLocationConfig) {
-    printf("<<< onGetRobustLocationConfigCb, valid flags 0x%x, enabled %d, enabledForE911 %d\n",
-           robustLocationConfig.validMask, robustLocationConfig.enabled,
-           robustLocationConfig.enabledForE911);
-}
-
 static void printHelp() {
     printf("g: Gnss report session with 1000 ms interval\n");
     printf("u: Update a session with 2000 ms interval\n");
@@ -199,8 +187,8 @@ static void printHelp() {
     printf("p: Ping test\n");
     printf("q: Quit\n");
     printf("r: delete client\n");
-    printf("%s tuncThreshold energyBudget: enable TUNC\n", ENABLE_TUNC);
-    printf("%s: disable TUNC\n", DISABLE_TUNC);
+    printf("%s tuncThreshold energyBudget: enable tunc\n", ENABLE_TUNC);
+    printf("%s: disable tunc\n", DISABLE_TUNC);
     printf("%s: enable PACE\n", ENABLE_PACE);
     printf("%s: disable PACE\n", DISABLE_PACE);
     printf("%s: reset sv config to default\n", RESET_SV_CONFIG);
@@ -208,8 +196,6 @@ static void printHelp() {
     printf("%s: mulitple config SV \n", MULTI_CONFIG_SV);
     printf("%s: delete all aiding data\n", DELETE_ALL);
     printf("%s: config lever arm\n", CONFIG_LEVER_ARM);
-    printf("%s: config robust location\n", CONFIG_ROBUST_LOCATION);
-    printf("%s: get robust location config\n", GET_ROBUST_LOCATION_CONFIG);
 }
 
 void setRequiredPermToRunAsLocClient()
@@ -229,7 +215,6 @@ void setRequiredPermToRunAsLocClient()
         numGrpIds = getgroups(LOC_PROCESS_MAX_NUM_GROUPS, appGrpsIds);
         if (numGrpIds == -1) {
             printf("Could not find groups. ngroups:%d\n", numGrpIds);
-            numGrpIds = 0;
         }
         else {
             printf("Curr num_groups = %d, Current GIDs: ", numGrpIds);
@@ -356,9 +341,6 @@ int main(int argc, char *argv[]) {
     LocIntegrationCbs intCbs;
 
     intCbs.configCb = LocConfigCb(onConfigResponseCb);
-    intCbs.getRobustLocationConfigCb =
-            LocConfigGetRobustLocationConfigCb(onGetRobustLocationConfigCb);
-
     LocConfigPriorityMap priorityMap;
     location_integration::LocationIntegrationApi* pIntClient =
             new LocationIntegrationApi(priorityMap, intCbs);
@@ -380,7 +362,6 @@ int main(int argc, char *argv[]) {
                 printf("failed to create integration client\n");
                 break;
             }
-            sleep(1); // wait for capability callback
         }
 
         if (strncmp(buf, DISABLE_TUNC, strlen(DISABLE_TUNC)) == 0) {
@@ -435,26 +416,6 @@ int main(int argc, char *argv[]) {
             LeverArmParamsMap configInfo;
             parseLeverArm(buf, configInfo);
             pIntClient->configLeverArm(configInfo);
-        } else if (strncmp(buf, CONFIG_ROBUST_LOCATION, strlen(CONFIG_ROBUST_LOCATION)) == 0) {
-            // get enable and enableForE911
-            static char *save = nullptr;
-            bool enable = false;
-            bool enableForE911 = false;
-            // skip first one of configRobustLocation
-            char* token = strtok_r(buf, " ", &save);
-            token = strtok_r(NULL, " ", &save);
-            if (token != NULL) {
-                enable = (atoi(token) == 1);
-                token = strtok_r(NULL, " ", &save);
-                if (token != NULL) {
-                    enableForE911 = (atoi(token) == 1);
-                }
-            }
-            printf("enable %d, enableForE911 %d\n", enable, enableForE911);
-            pIntClient->configRobustLocation(enable, enableForE911);
-        } else if (strncmp(buf, GET_ROBUST_LOCATION_CONFIG,
-                           strlen(GET_ROBUST_LOCATION_CONFIG)) == 0) {
-            pIntClient->getRobustLocationConfig();
         } else {
             int command = buf[0];
             switch(command) {

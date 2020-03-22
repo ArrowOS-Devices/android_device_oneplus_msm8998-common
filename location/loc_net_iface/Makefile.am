@@ -13,17 +13,10 @@ AM_CFLAGS = \
 
 ACLOCAL_AMFLAGS = -I m4
 
-<<<<<<< HEAD
-=======
 if USE_MOBILEAP_INDICATION
     AM_CFLAGS += -DFEATURE_MOBILEAP_INDICATION
 endif
 
-if USE_ROAMING_BACKHAUL_STATUS_INDICATION
-    AM_CFLAGS += -DFEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
-endif
-
->>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
 AM_CPPFLAGS = -std=c++11
 
 libloc_net_iface_la_SOURCES = \
