@@ -59,19 +59,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.audio.sdk.ssr=false \
     vendor.audio.offload.gapless.enabled=true \
     vendor.audio.safx.pbe.enabled=false \
-    vendor.audio.parser.ip.buffer.size=262144 \
+    vendor.audio.spkr_prot.tx.sampling_rate=48000 \
+    vendor.audio.parser.ip.buffer.size=0 \
     vendor.audio.flac.sw.decoder.24bit=true \
-    persist.vendor.bt.enable.splita2dp=false \
     vendor.audio.use.sw.alac.decoder=true \
     vendor.audio.use.sw.ape.decoder=true \
     vendor.audio.volume.headset.gain.depcal=true \
     vendor.audio.hw.aac.encoder=true \
     vendor.fm.a2dp.conc.disabled=true \
     vendor.audio.noisy.broadcast.delay=600 \
-    vendor.audio.spkr_prot.tx.sampling_rate=48000 \
-    vendor.audio.volume.headset.gain.depcal=true \
-    ro.config.media_vol_steps=25 \
-    ro.config.vc_call_vol_steps=11
+    ro.config.alarm_vol_default=10 \
+    ro.config.alarm_vol_steps=16 \
+    ro.config.media_vol_default=7 \
+    ro.config.media_vol_steps=18 \
+    ro.config.vc_call_vol_default=6 \
+    ro.config.vc_call_vol_steps=8
+
+
 
 # Audio dynamic feature flags
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -108,7 +112,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.feature.record_play_concurency.enable=false \
     vendor.audio.feature.src_trkn.enable=true \
     vendor.audio.feature.spkr_prot.enable=true \
-    vendor.audio.feature.ssrec.enable=false \
+    vendor.audio.feature.ssrec.enable=true \
     vendor.audio.feature.usb_offload.enable=true \
     vendor.audio.feature.usb_offload_burst_mode.enable=false \
     vendor.audio.feature.usb_offload_sidetone_volume.enable=false \
@@ -116,7 +120,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.feature.vbat.enable=true \
     vendor.audio.feature.wsa.enable=false \
     vendor.audio.feature.audiozoom.enable=false \
-    vendor.audio.feature.snd_mon.enable=false
+    vendor.audio.feature.snd_mon.enable=true
 
 # Battery
 PRODUCT_PROPERTY_OVERRIDES += \
