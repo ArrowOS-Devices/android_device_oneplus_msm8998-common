@@ -122,11 +122,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     bt.max.hfpclient.connections=1 \
-    persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac \
-    persist.bluetooth.a2dp_offload.disabled=false \
     persist.vendor.bluetooth.a4wp=false \
-    persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxhd-aac-ldac \
-    ro.bluetooth.a2dp_offload.supported=true \
+    persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxhd-aac \
+    persist.vendor.qcom.bluetooth.enable.splita2dp=true \
     vendor.bluetooth.emb_wp_mode=false \
     vendor.bluetooth.wipower=false
     vendor.qcom.bluetooth.soc=cherokee
