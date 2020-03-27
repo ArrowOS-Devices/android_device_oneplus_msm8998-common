@@ -39,6 +39,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio new
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.audio.sdk.fluencetype=fluencepro \
+    persist.audio.fluence.voicecomm=true \
     persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicerec=true \
     persist.vendor.audio.fluence.speaker=true \
@@ -46,6 +47,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.af.client_heap_size_kbyte=7168 \
     persist.vendor.audio.hw.binder.size_kbyte=1024 \
     persist.vendor.audio.ras.enabled=false \
+    persist.vendor.bt.aac_frm_ctl.enabled=true \
     vendor.audio.offload.buffer.size.kb=32 \
     vendor.audio.offload.track.enable=true \
     vendor.voice.path.for.pcm.voip=true \
@@ -62,6 +64,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.bt.enable.splita2dp=false \
     vendor.audio.use.sw.alac.decoder=true \
     vendor.audio.use.sw.ape.decoder=true \
+    vendor.audio.volume.headset.gain.depcal=true \
     vendor.audio.hw.aac.encoder=true \
     vendor.fm.a2dp.conc.disabled=true \
     vendor.audio.noisy.broadcast.delay=600 \
@@ -194,6 +197,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.enable_vds=1 \
     persist.sys.force_sw_gles=0 \
     persist.sys.wfd.virtual=0 \
+    ro.hardware.vulkan=adreno \
+    ro.hardware.egl=adreno \
     vendor.gralloc.enable_fb_ubwc=1 \
     vendor.gralloc.disable_wb_ubwc=1 \
     vendor.display.disable_partial_split=1 \
@@ -232,7 +237,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.camera.notify_nfc=1 \
     ro.hardware.nfc_nci=nqx.default \
     ro.nfc.port=I2C \
-    persist.nfc.smartcard.config=SIM1,eSE1
+    persist.nfc.smartcard.config=SIM1,eSE1 \
+    ro.boot.product.hardware.sku=ese
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -299,6 +305,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.bar_fake_gcell=1 \
     persist.vendor.radio.arfcn_test_mode=3 \
+    persist.vendor.radio.uicc_se_enabled=false \
     persist.backup.ntpServer=0.pool.ntp.org
 
 # RmNet Data
