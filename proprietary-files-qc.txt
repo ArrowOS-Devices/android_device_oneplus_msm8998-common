@@ -113,58 +113,27 @@ vendor/lib64/com.qualcomm.qti.ant@1.0.so
 vendor/lib64/hw/com.qualcomm.qti.ant@1.0-impl.so
 
 # Bluetooth (Audio)
-etc/bluetooth/bt_configstore.conf
-etc/bluetooth/bt_profile.conf
-etc/bluetooth/bt_stack_debug.conf
-etc/bluetooth/interop_database.conf
-lib/fm_helium.so
-lib/libbluetooth_qti.so
-lib/libbt-logClient.so
-lib/libbtconfigstore.so
-<<<<<<< HEAD
-lib/libfm-hci.so
-lib/libldacBT_abr.so
-lib/libldacBT_enc.so
-lib/libqcomfm_jni.so
-lib64/fm_helium.so
-lib64/libbluetooth_qti.so
-lib64/libbt-logClient.so
-lib64/libbtconfigstore.so
-lib64/libfm-hci.so
-lib64/libldacBT_abr.so
-lib64/libldacBT_enc.so
-lib64/libqcomfm_jni.so
-=======
-lib64/libbluetooth_qti.so
-lib64/libbt-logClient.so
-lib64/libbtconfigstore.so
->>>>>>> 491c49a... msm8998-common: Drop proprietary files that can be built
 product/lib/com.qualcomm.qti.bluetooth_audio@1.0.so
 product/lib/vendor.qti.hardware.bluetooth_sar@1.0.so
 product/lib/vendor.qti.hardware.btconfigstore@1.0.so
--product/lib/vendor.qti.hardware.fm@1.0.so
 product/lib64/com.qualcomm.qti.bluetooth_audio@1.0.so
 product/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 product/lib64/vendor.qti.hardware.btconfigstore@1.0.so
 vendor/bin/ftmdaemon
 vendor/lib/com.qualcomm.qti.bluetooth_audio@1.0.so
-vendor/lib/ftm_fm_lib.so
 vendor/lib/hw/audio.bluetooth_qti.default.so
 vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
 vendor/lib/hw/vendor.qti.hardware.bluetooth_sar@1.0-impl.so
 vendor/lib/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so
-vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so
 vendor/lib/btaudio_offload_if.so
 vendor/lib/libbluetooth_audio_session_qti.so
 vendor/lib/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib/vendor.qti.hardware.btconfigstore@1.0.so
 vendor/lib/vendor.qti.hardware.fm@1.0.so
-vendor/lib64/ftm_fm_lib.so
 vendor/lib64/hw/audio.bluetooth_qti.default.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.0-impl.so
 vendor/lib64/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so
-vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so
 vendor/lib64/btaudio_offload_if.so
 vendor/lib64/libbluetooth_audio_session_qti.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
@@ -1398,14 +1367,12 @@ vendor/bin/fstman
 vendor/bin/wifilearner
 vendor/etc/init/vendor.qti.hardware.fstman@1.0-service.rc
 vendor/etc/init/vendor.qti.hardware.wifi.wifilearner@1.0-service.rc
-vendor/etc/wifi/WCNSS_qcom_cfg_cta.ini
 vendor/etc/wifi/aoa_cldb_falcon.bin
 vendor/etc/wifi/aoa_cldb_swl14.bin
-vendor/etc/wifi/fstman.ini
-vendor/etc/wifi/sar-vendor-cmd.xml
 vendor/lib64/libaoa.so
 vendor/lib64/vendor.qti.hardware.wifi.keystore@1.0.so
 vendor/lib64/vendor.qti.hardware.wifi.wifilearner@1.0.so
+vendor/lib64/vendor.qti.hardware.wigig.netperftuner@1.0.so
 vendor/lib/libaoa.so
 
 # Wi-Fi Display
