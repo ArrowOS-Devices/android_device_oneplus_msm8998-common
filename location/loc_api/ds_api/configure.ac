@@ -45,6 +45,7 @@ PKG_CHECK_MODULES([GPSUTILS], [gps-utils])
 AC_SUBST([GPSUTILS_CFLAGS])
 AC_SUBST([GPSUTILS_LIBS])
 
+<<<<<<< HEAD:location/loc_api/ds_api/configure.ac
 AC_ARG_WITH([core_includes],
       AC_HELP_STRING([--with-core-includes=@<:@dir@:>@],
         [Specify the location of the core headers]),
@@ -54,6 +55,11 @@ AC_ARG_WITH([core_includes],
 if test "x${with_core_includes}" != "xno"; then
     CPPFLAGS="${CPPFLAGS} -I${core_incdir}"
 fi
+=======
+PKG_CHECK_MODULES([QMIFW], [qmi-framework])
+AC_SUBST([QMIFW_CFLAGS])
+AC_SUBST([QMIFW_LIBS])
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0:location/utils/loc_socket/configure.ac
 
 AC_ARG_WITH([locpla_includes],
       AC_HELP_STRING([--with-locpla-includes=@<:@dir@:>@],

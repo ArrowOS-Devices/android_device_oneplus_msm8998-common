@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017, 2020 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -99,6 +99,7 @@ private:
     void handleQcmapCallback(
             qcmap_msgr_wlan_status_ind_msg_v01 &wlanStatusIndData);
     void handleQcmapCallback(
+<<<<<<< HEAD
             qcmap_msgr_station_mode_status_ind_msg_v01 &stationModeIndData);
     void handleQcmapCallback(
             qcmap_msgr_wwan_status_ind_msg_v01 &wwanStatusIndData);
@@ -106,11 +107,29 @@ private:
             qcmap_msgr_bring_up_wwan_ind_msg_v01 &bringUpWwanIndData);
     void handleQcmapCallback(
             qcmap_msgr_tear_down_wwan_ind_msg_v01 &teardownWwanIndData);
+=======
+            qcmap_msgr_bring_up_wwan_ind_msg_v01 &bringUpWwanIndData);
+    void handleQcmapCallback(
+            qcmap_msgr_tear_down_wwan_ind_msg_v01 &teardownWwanIndData);
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
+    void handleQcmapCallback(
+            qcmap_msgr_backhaul_status_ind_msg_v01 &backhaulStatusIndData);
+    void handleQcmapCallback(
+            qcmap_msgr_wwan_roaming_status_ind_msg_v01 &roamingStatusIndData);
+#endif
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
     void notifyObserverForWlanStatus(bool isWlanEnabled);
     void notifyObserverForNetworkInfo(boolean isConnected, LocNetConnType connType);
     void notifyCurrentNetworkInfo(bool queryQcmap,
             LocNetConnType connType = LOC_NET_CONN_TYPE_INVALID);
     void notifyCurrentWifiHardwareState(bool queryQcmap);
+<<<<<<< HEAD
+=======
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
+    void setCurrentBackHaulStatus(qcmap_msgr_backhaul_type_enum_v01  backhaulType,
+            boolean backhaulIPv4Available, boolean backhaulIPv6Available);
+#endif
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
 
     /* Callback registered with QCMAP */
     static void qcmapClientCallback

@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017, 2020 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -244,6 +244,7 @@ void LocNetIface::qcmapClientCallback(
         break;
     }
 
+<<<<<<< HEAD
     case QMI_QCMAP_MSGR_BRING_UP_WWAN_IND_V01: {
         LOC_LOGD("Received QMI_QCMAP_MSGR_BRING_UP_WWAN_IND_V01");
 
@@ -253,6 +254,12 @@ void LocNetIface::qcmapClientCallback(
         qmi_error = qmi_client_message_decode(user_handle, QMI_IDL_INDICATION,
                 msg_id, ind_buf, ind_buf_len, &bringUpWwanIndData,
                 sizeof(qcmap_msgr_bring_up_wwan_ind_msg_v01));
+=======
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
+    case QMI_QCMAP_MSGR_BACKHAUL_STATUS_IND_V01:
+    {
+        qcmap_msgr_backhaul_status_ind_msg_v01 backhaulStatusData;
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
 
         if (qmi_error != QMI_NO_ERR) {
             LOC_LOGE("qmi_client_message_decode error %d", qmi_error);
@@ -281,6 +288,7 @@ void LocNetIface::qcmapClientCallback(
         LocNetIface::sLocNetIfaceInstance->handleQcmapCallback(teardownWwanIndData);
         break;
     }
+#endif
 
     default:
         LOC_LOGE("Ignoring QCMAP indication: %d", msg_id);
@@ -311,6 +319,8 @@ void LocNetIface::handleQcmapCallback(
         LOC_LOGE("Invalid wlan status %d", wlanStatusIndData.wlan_status);
     }
 }
+
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
 void LocNetIface::handleQcmapCallback(
         qcmap_msgr_station_mode_status_ind_msg_v01 &stationModeIndData){
 
@@ -332,10 +342,14 @@ void LocNetIface::handleQcmapCallback(
                     stationModeIndData.station_mode_status);
     }
 }
+<<<<<<< HEAD
 void LocNetIface::handleQcmapCallback(
         qcmap_msgr_wwan_status_ind_msg_v01 &wwanStatusIndData) {
 
     ENTRY_LOG();
+=======
+#endif
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
 
     LOC_LOGD("WWAN Status (Connected_v4=3, Disconnected_v4=6): %d",
             wwanStatusIndData.wwan_status);
@@ -438,6 +452,21 @@ void LocNetIface::handleQcmapCallback(
     }
 }
 
+<<<<<<< HEAD
+=======
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
+void LocNetIface::handleQcmapCallback(
+        qcmap_msgr_wwan_roaming_status_ind_msg_v01 &roamingStatusIndData) {
+
+    ENTRY_LOG();
+
+    mIsRoaming = (roamingStatusIndData.wwan_roaming_status != 0);
+    LOC_LOGD("Roaming status(OFF:0x00, ON:0x01-0x0C): %x, Roaming: %d",
+                roamingStatusIndData.wwan_roaming_status, mIsRoaming);
+}
+#endif
+
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
 void LocNetIface::notifyCurrentNetworkInfo(bool queryQcmap, LocNetConnType connType) {
 
     ENTRY_LOG();
@@ -833,16 +862,35 @@ bool LocNetIface::isWlanConnected() {
         return false;
     }
 
+<<<<<<< HEAD
     /* Fetch station mode status */
     qcmap_msgr_station_mode_status_enum_v01 status =
             QCMAP_MSGR_STATION_MODE_STATUS_ENUM_MIN_ENUM_VAL_V01;
     qmi_error_type_v01 qmi_err_num = QMI_ERROR_TYPE_MIN_ENUM_VAL_V01;
+=======
+    /* fetch roaming status */
+    uint8_t roamStatus = 0;
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
+    qmi_error_type_v01 qmi_err_num = QMI_ERROR_TYPE_MIN_ENUM_VAL_V01;
+    if (!mQcmapClientPtr->GetWWANRoamStatus(&roamStatus, &qmi_err_num)) {
+        LOC_LOGE("Failed to fetch roaming status, err %d", qmi_err_num);
+        return false;
+    }
+#endif
+    // update internal roaming variable
+    LOC_LOGD("Roaming status(OFF:0x00, ON:0x01-0x0C): %x", roamStatus);
+    return (roamStatus != 0);
+}
+
+bool LocNetIface::isAnyBackHaulConnected() {
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
 
     if (!mQcmapClientPtr->GetStationModeStatus(&status, &qmi_err_num)) {
         LOC_LOGE("Failed to fetch station mode status, err %d", qmi_err_num);
         return false;
     }
 
+<<<<<<< HEAD
     /* Notify observers */
     if (status == QCMAP_MSGR_STATION_MODE_CONNECTED_V01) {
         LOC_LOGV("WLAN is connected.");
@@ -851,13 +899,74 @@ bool LocNetIface::isWlanConnected() {
     } else if (status == QCMAP_MSGR_STATION_MODE_DISCONNECTED_V01) {
         LOC_LOGV("WLAN is disconnected.");
         mLocNetWlanState = LOC_NET_CONN_STATE_DISCONNECTED;
+=======
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
+    /* Fetch backhaul status */
+    qcmap_backhaul_status_info_type backhaulStatus =
+            {false, false, QCMAP_MSGR_BACKHAUL_TYPE_ENUM_MIN_ENUM_VAL_V01};
+    qmi_error_type_v01 qmi_err_num = QMI_ERROR_TYPE_MIN_ENUM_VAL_V01;
+
+    if (!mQcmapClientPtr->GetBackhaulStatus(&backhaulStatus, &qmi_err_num)) {
+        LOC_LOGE("Failed to fetch backhaul status, err %d", qmi_err_num);
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
         return false;
     } else {
         LOC_LOGE("Unhandled station mode status %d", status);
     }
+<<<<<<< HEAD
 
     return false;
+=======
+    setCurrentBackHaulStatus(backhaulStatus.backhaul_type,
+                backhaulStatus.backhaul_v4_available,
+                backhaulStatus.backhaul_v6_available);
+#endif
+    return (LOC_NET_CONN_STATE_CONNECTED == mLocNetBackHaulState);
 }
+
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
+void LocNetIface::setCurrentBackHaulStatus(
+                qcmap_msgr_backhaul_type_enum_v01 backhaulType,
+                boolean backhaulIPv4Available,
+                boolean backhaulIPv6Available) {
+    LOC_LOGI("Type:  1-WWAN, 2-USB Cradle, 3-WLAN , 4-Ethernet, 5-BT");
+    LOC_LOGI("BackhaulStatus Type: %d, IPv4 avail:%d, IPv6 avail:%d",
+                backhaulType, backhaulIPv4Available, backhaulIPv6Available);
+    switch (backhaulType)
+    {
+      case QCMAP_MSGR_WWAN_BACKHAUL_V01:
+        mLocNetBackHaulType = LOC_NET_CONN_TYPE_WWAN_INTERNET;
+        break;
+      case QCMAP_MSGR_USB_CRADLE_BACKHAUL_V01:
+        mLocNetBackHaulType = LOC_NET_CONN_TYPE_USB_CRADLE;
+        break;
+      case QCMAP_MSGR_WLAN_BACKHAUL_V01:
+        mLocNetBackHaulType = LOC_NET_CONN_TYPE_WLAN;
+        break;
+      case QCMAP_MSGR_ETHERNET_BACKHAUL_V01:
+        mLocNetBackHaulType = LOC_NET_CONN_TYPE_ETHERNET;
+        break;
+      case QCMAP_MSGR_BT_BACKHAUL_V01:
+        mLocNetBackHaulType = LOC_NET_CONN_TYPE_BLUETOOTH;
+        break;
+      default:
+        LOC_LOGE("Invalid backhaul type : %d", backhaulType);
+        mLocNetBackHaulType = LOC_NET_CONN_TYPE_INVALID;
+        break;
+    }
+    if (backhaulType != QCMAP_MSGR_WWAN_BACKHAUL_V01) {
+        // set this to false for backhaul type other than wwan
+        mIsRoaming = false;
+    }
+    if ((false == backhaulIPv4Available) && (false == backhaulIPv6Available)) {
+        mLocNetBackHaulState = LOC_NET_CONN_STATE_DISCONNECTED;
+    }
+    else {
+        mLocNetBackHaulState = LOC_NET_CONN_STATE_CONNECTED;
+    }
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
+}
+#endif
 
 bool LocNetIface::isWwanConnected() {
 
@@ -875,6 +984,7 @@ bool LocNetIface::isWwanConnected() {
         return false;
     }
 
+#ifdef FEATURE_ROAMING_BACKHAUL_STATUS_INDICATION
     /* Fetch backhaul status */
     qmi_error_type_v01 qmi_err_num = QMI_ERR_NONE_V01;
     qcmap_msgr_wwan_status_enum_v01 v4_status, v6_status;
@@ -894,6 +1004,7 @@ bool LocNetIface::isWwanConnected() {
     } else {
         LOC_LOGE("Unhandled wwan status %d", v4_status);
     }
+#endif
 
     return false;
 }

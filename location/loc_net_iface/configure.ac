@@ -61,6 +61,30 @@ PKG_CHECK_MODULES([DATAITEMS], [data-items])
 AC_SUBST([DATAITEMS_CFLAGS])
 AC_SUBST([DATAITEMS_LIBS])
 
+<<<<<<< HEAD
+=======
+# check if it has support for mobileap register indication.
+AC_ARG_ENABLE(mobileap-indications,
+    [AS_HELP_STRING([--enable-mobileap-indications=MOBILEAP_INDICATION_ENABLED],
+        [If it has support for mobileap register indication.])],
+    [MOBILEAP_INDICATION_ENABLED=$enableval],
+    [MOBILEAP_INDICATION_ENABLED=no]
+)
+
+AM_CONDITIONAL(USE_MOBILEAP_INDICATION, test "x$MOBILEAP_INDICATION_ENABLED" == "xyes")
+
+# Check if it has support for roaming and backhaul status indication.
+AC_ARG_ENABLE(roaming-backhaul-status-indications,
+    [AS_HELP_STRING([--enable-roaming-backhaul-status-indications=ROAM_BACKHAUL_STATUS_INDICATION_ENABLED],
+        [If it has support for mobileap register indication.])],
+    [ROAM_BACKHAUL_STATUS_INDICATION_ENABLED=$enableval],
+    [ROAM_BACKHAUL_STATUS_INDICATION_ENABLED=no]
+)
+
+AM_CONDITIONAL(USE_ROAMING_BACKHAUL_STATUS_INDICATION, test "x$ROAM_BACKHAUL_STATUS_INDICATION_ENABLED" == "xyes")
+
+
+>>>>>>> 0e4f50c... msm8998-common: Update gps and location from LA.UM.8.4.r1-05700-8x98.0
 AC_ARG_WITH([core_includes],
       AC_HELP_STRING([--with-core-includes=@<:@dir@:>@],
          [Specify the location of the core headers]),
