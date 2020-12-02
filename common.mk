@@ -426,7 +426,8 @@ PRODUCT_SHIPPING_API_LEVEL := 25
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
-    device/oneplus/msm8998-common
+    device/oneplus/msm8998-common \
+    vendor/qcom/opensource/data-ipa-cfg-mgr
 
 # Tetheroffload
 PRODUCT_PACKAGES += \
