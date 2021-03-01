@@ -86,3 +86,5 @@
 
 # Wifi
 /(vendor|system/vendor)/bin/wifi-mac-generator                  u:object_r:wifi_mac_generator_exec:s0
+
+/(vendor|system/vendor)/bin/hw/android\.hardware\.power-service-qti   u:object_r:hal_power_default_exec:s0
