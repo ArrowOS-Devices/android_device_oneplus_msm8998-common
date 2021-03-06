@@ -100,6 +100,8 @@ vendor/lib/soundfx/libasphere.so
 vendor/lib64/soundfx/libasphere.so
 
 # Bluetooth
+lib/android.hardware.bluetooth@1.0.so:vendor/lib/android.hardware.bluetooth@1.0.so
+lib64/android.hardware.bluetooth@1.0.so:vendor/lib64/android.hardware.bluetooth@1.0.so
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
 vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so
