@@ -394,6 +394,7 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     android.system.net.netd@1.1 \
+    android.hardware.radio.config@1.0.vendor \
     librmnetctl \
     libxml2 \
     libprotobuf-cpp-full
