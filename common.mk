@@ -393,6 +393,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    android.system.net.netd@1.1 \
     librmnetctl \
     libxml2 \
     libprotobuf-cpp-full
@@ -427,7 +428,8 @@ PRODUCT_SHIPPING_API_LEVEL := 25
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     device/oneplus/msm8998-common \
-    vendor/qcom/opensource/data-ipa-cfg-mgr
+    vendor/qcom/opensource/data-ipa-cfg-mgr \
+    vendor/qcom/opensource/dataservices
 
 # Tetheroffload
 PRODUCT_PACKAGES += \
