@@ -92,10 +92,10 @@ PRODUCT_CHARACTERISTICS := nosdcard
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio@6.0-impl \
-    android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@6.0-impl \
-    android.hardware.soundtrigger@2.2-impl \
+    android.hardware.audio@6.0-impl:32 \
+    android.hardware.audio.effect@6.0-impl:32 \
+    android.hardware.audio.service \
+    android.hardware.soundtrigger@2.2-impl:32 \
     audio.a2dp.default \
     audio_amplifier.msm8998 \
     audio.primary.msm8998 \
@@ -105,8 +105,7 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    libvolumelistener \
-    tinymix
+    libvolumelistener
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
@@ -125,8 +124,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(LOCAL_PATH)/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
-    $(LOCAL_PATH)/audio/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml
+    $(LOCAL_PATH)/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
@@ -141,11 +139,9 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth.audio@2.0-impl:32 \
     audio.bluetooth.default \
-    bt-mac-generator \
-    libbt-vendor \
-    libbthost_if
+    bt-mac-generator
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -154,7 +150,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.5:64 \
     android.hardware.camera.provider@2.4:64 \
     android.hardware.camera.provider@2.5:64 \
-    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service \
     camera.device@1.0-impl \
     camera.device@3.2-impl \
@@ -162,12 +158,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.camera.device@1.0
-
-# Connectivity Engine support (CNE)
-PRODUCT_PACKAGES += \
-    cneapiclient \
-    com.quicinc.cne \
-    services-ext
 
 # Device Settings
 PRODUCT_PACKAGES += \
@@ -179,9 +169,8 @@ PRODUCT_COPY_FILES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-impl:64 \
     android.hardware.graphics.allocator@2.0-service \
-    android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.configstore@1.0-service \
@@ -192,8 +181,6 @@ PRODUCT_PACKAGES += \
     memtrack.msm8998 \
     libdisplayconfig \
     libhwc2on1adapter \
-    libgenlock \
-    liboverlay \
     libtinyxml \
     libqdMetaData \
     libqdMetaData.system \
@@ -209,15 +196,13 @@ PRODUCT_PACKAGES += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-impl:64 \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.3-service.clearkey \
-    android.hardware.drm@1.2-service.widevine
+    android.hardware.drm@1.3-service.clearkey
 
 # Fingerprint sensor
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service \
-    fingerprintd \
     OnePlusPocketMode
 
 # For android_filesystem_config.h
@@ -270,19 +255,20 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,${LOCAL_PATH}/prebuilt/vendor,$(TARGET_COPY_OUT_VENDOR))
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
+    $(LOCAL_PATH)/rootdir/etc/init.devstart.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.devstart.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.usb.rc \
+    $(LOCAL_PATH)/rootdir/etc/init.radio.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.radio.sh \
+    $(LOCAL_PATH)/rootdir/etc/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    $(LOCAL_PATH)/rootdir/etc/init.target.displaymodes.rc:$(TARGET_COPY_OUT_VENDOR)/init.target.displaymodes.rc
 
 # IFAA (Fingerprint support for Alipay)
 PRODUCT_PACKAGES += \
     org.ifaa.android.manager
 
-PRODUCT_BOOT_JARS += \
-    org.ifaa.android.manager
-
-# IPv6
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes
+#PRODUCT_BOOT_JARS += \
+#    org.ifaa.android.manager
 
 # IRQ
 PRODUCT_COPY_FILES += \
@@ -292,9 +278,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
+# Keyboard
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/idc/fpc1020.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/fpc1020.idc \
+    $(LOCAL_PATH)/idc/gf_input.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/gf_input.idc
+
 # Keylayout
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,${LOCAL_PATH}/prebuilt/usr,$(TARGET_COPY_OUT_VENDOR)/usr)
+    $(LOCAL_PATH)/keylayout/fpc1020.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/fpc1020.kl \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/keylayout/synaptics_s3320.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/synaptics_s3320.kl \
+    $(LOCAL_PATH)/keylayout/synaptics.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/synaptics.kl
 
 # Keymaster
 PRODUCT_PACKAGES += \
@@ -319,7 +313,6 @@ PRODUCT_COPY_FILES += \
 
 # Media Extensions
 PRODUCT_PACKAGES += \
-    libavmediaserviceextensions \
     libmediametrics \
     libregistermsext \
     mediametrics
@@ -327,12 +320,6 @@ PRODUCT_PACKAGES += \
 # Native Public Libraries
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
-
-# Netutils
-PRODUCT_PACKAGES += \
-    android.system.net.netd@1.0 \
-    libandroid_net \
-    netutils-wrapper-1.0
 
 # NFC
 PRODUCT_PACKAGES += \
@@ -361,7 +348,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
-    libextmedia_jni \
     libhypv_intercept \
     libmm-omxcore \
     libOmxAacEnc \
@@ -377,7 +363,7 @@ PRODUCT_PACKAGES += \
 # Privapp Whitelist
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml \
-    $(LOCAL_PATH)/configs/product-privapp-permissions-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/product-privapp-permissions-qti.xml
+    $(LOCAL_PATH)/configs/system_ext-privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/system_ext-privapp-permissions-qti.xml
 
 # Power
 PRODUCT_PACKAGES += \
@@ -410,9 +396,8 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.2 \
-    android.hardware.radio@1.4 \
-    android.hardware.radio.config@1.0 \
+    android.system.net.netd@1.1 \
+    android.hardware.radio.config@1.0.vendor \
     librmnetctl \
     libxml2 \
     libprotobuf-cpp-full
@@ -437,7 +422,7 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-impl:64 \
     android.hardware.sensors@1.0-service \
     libsensorndkbridge
 
@@ -446,26 +431,18 @@ PRODUCT_SHIPPING_API_LEVEL := 25
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
-    device/oneplus/msm8998-common
+    device/oneplus/msm8998-common \
+    vendor/qcom/opensource/data-ipa-cfg-mgr \
+    vendor/qcom/opensource/dataservices
 
 # Tetheroffload
 PRODUCT_PACKAGES += \
     ipacm \
     IPACM_cfg.xml
 
-# TextClassifier smart selection model files
-PRODUCT_PACKAGES += \
-    textclassifier.bundle1
-
-# Thermal
-PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service \
-    thermal.msm8998
-
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service.basic
+    android.hardware.usb@1.0-service
 
 # Vendor properties
 -include $(LOCAL_PATH)/vendor_prop.mk
@@ -478,7 +455,7 @@ $(call inherit-product, build/target/product/verity.mk)
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-impl:64 \
     android.hardware.vibrator@1.0-service
 
 # VNDK
@@ -492,12 +469,6 @@ PRODUCT_COPY_FILES += \
     prebuilts/vndk/v29/arm64/arch-arm-armv8-a/shared/vndk-sp/libcutils.so:$(TARGET_COPY_OUT_SYSTEM)/lib/libcutils-v29.so \
     prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-sp/libcutils.so:$(TARGET_COPY_OUT_SYSTEM)/lib64/libcutils-v29.so
 
-# VR
-PRODUCT_PACKAGES += \
-    android.hardware.vr@1.0-impl \
-    android.hardware.vr@1.0-service \
-    vr.msm8998
-
 # Weaver
 PRODUCT_PACKAGES += \
     android.hardware.weaver@1.0
@@ -507,8 +478,6 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     hostapd \
     hostapd_cli \
-    libqsap_sdk \
-    libQWiFiSoftApCfg \
     libwifi-hal-qcom \
     wificond \
     wpa_supplicant \
@@ -518,7 +487,6 @@ PRODUCT_PACKAGES += \
     wifi-mac-generator
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/fstman.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/fstman.ini \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/sar-vendor-cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/sar-vendor-cmd.xml \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
@@ -531,11 +499,16 @@ PRODUCT_PACKAGES += \
     libaacwrapper \
     libnl
 
-PRODUCT_BOOT_JARS += \
-    WfdCommon
+#PRODUCT_BOOT_JARS += \
+#    WfdCommon
 
 # Inherit from oppo-common
 #$(call inherit-product, device/oppo/common/common.mk)
+
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.secure=0 \
+    ro.adb.secure=0 \
+    ro.debuggable=1
 
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)

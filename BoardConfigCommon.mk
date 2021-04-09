@@ -22,12 +22,13 @@
 # definition file).
 #
 
-# Inherit from oppo-common
--include device/oppo/common/BoardConfigCommon.mk
-
 PLATFORM_PATH := device/oneplus/msm8998-common
 
 BOARD_VENDOR := oneplus
+
+# Broken
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
 
 # we are too big to fit in
 PRODUCT_SKIP_FINGERPRINT_FROM_FILE := true
@@ -59,13 +60,10 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a73
 
 BUILD_BROKEN_DUP_RULES := true
-BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 
-BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 
-BOARD_KERNEL_CMDLINE += service_locator.enable=1 swiotlb=2048 androidboot.usbconfigfs=true 
-BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a800000.dwc3 
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3
+BOARD_KERNEL_CMDLINE += service_locator.enable=1 swiotlb=2048
 BOARD_KERNEL_CMDLINE += loop.max_part=7
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
@@ -73,9 +71,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8998
 TARGET_KERNEL_CONFIG := oneplus5_defconfig
 TARGET_KERNEL_CLANG_COMPILE := true
@@ -105,22 +101,15 @@ USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bluetooth
-BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
-#TARGET_USE_QTI_BT_STACK := true
-QCOM_BT_USE_BTNV := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_PATH)/bluetooth/include
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
-BOARD_QTI_CAMERA_32BIT_ONLY := true
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
-
-# CNE and DPM
-BOARD_USES_QCNE := true
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
@@ -131,7 +120,6 @@ TARGET_USES_HWC2 := true
 TARGET_SCREEN_DENSITY := 420
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_ION := true
-USE_OPENGL_RENDERER := true
 
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 
@@ -167,7 +155,6 @@ DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
 TARGET_INIT_VENDOR_LIB := //$(PLATFORM_PATH):libinit_oneplus_msm8998
-TARGET_RECOVERY_DEVICE_MODULES := libinit_oneplus_msm8998
 
 # IPA
 TARGET_USES_NO_MTU_IPACM := true
@@ -200,7 +187,9 @@ TARGET_USES_INTERACTION_BOOST := true
 
 # Properties
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
+TARGET_SYSTEM_EXT_PROP += $(PLATFORM_PATH)/system_ext.prop
 TARGET_SYSTEM_PROP += $(PLATFORM_PATH)/system.prop
+TARGET_VENDOR_PROP += $(PLATFORM_PATH)/vendor.prop
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery.fstab
@@ -227,13 +216,14 @@ VENDOR_SECURITY_PATCH := 2020-09-01
 # SELinux
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 
+SELINUX_IGNORE_NEVERALLOWS := true
+
 BOARD_VENDOR_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy/vendor
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(PLATFORM_PATH)/sepolicy/public
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(PLATFORM_PATH)/sepolicy/private
 
 # Treble
 PRODUCT_FULL_TREBLE_OVERRIDE := true
-PRODUCT_VENDOR_MOVE_ENABLED := true
 TARGET_COPY_OUT_VENDOR := vendor
 
 # VNDK
@@ -247,15 +237,12 @@ BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-WIFI_DRIVER_DEFAULT := qca_cld3
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WIFI_DRIVER_OPERSTATE_PATH := "/sys/class/net/wlan0/operstate"
-WIFI_DRIVER_STATE_CTRL_PARAM := "/dev/wlan"
-WIFI_DRIVER_STATE_OFF := "OFF"
-WIFI_DRIVER_STATE_ON := "ON"
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION := true
 

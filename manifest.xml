@@ -118,15 +118,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.light</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>ILight</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>android.hardware.media.omx</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -242,15 +233,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.vr</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IVr</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>com.qualcomm.qti.ant</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -323,15 +305,6 @@
         <version>1.0</version>
         <interface>
             <name>IDisplayPostproc</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.nxp.hardware.nfc</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>INqNfc</name>
             <instance>default</instance>
         </interface>
     </hal>
