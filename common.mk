@@ -505,10 +505,5 @@ PRODUCT_PACKAGES += \
 # Inherit from oppo-common
 #$(call inherit-product, device/oppo/common/common.mk)
 
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1
-
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
