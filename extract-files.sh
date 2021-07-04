@@ -79,12 +79,6 @@ function blob_fixup() {
         system_ext/lib64/libdpmframework.so )
             sed -i "s|libhidltransport.so|libcutils-v29.so\x00\x00\x00|" "${2}"
             ;;
-        lib/libwfdmmsink.so)
-            "${PATCHELF}" --add-needed "libshim_wfdmmsink.so" "${2}"
-            ;;
-	lib64/libwfdnative.so)
-	    "${PATCHELF}" --remove-needed "android.hidl.base@1.0.so" "${2}"
-            ;;
         vendor/etc/permissions/com.fingerprints.extension.xml )
             sed -i "s|/system/framework/|/vendor/framework/|g" "${2}"
             ;;
