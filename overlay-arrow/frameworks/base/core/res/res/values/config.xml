@@ -22,8 +22,8 @@
     <!-- Default value for proximity check on screen wake
      NOTE ! - Enable for devices that have a fast response proximity sensor (ideally < 300ms)-->
     <bool name="config_proximityCheckOnWake">true</bool>
-    <integer name="config_proximityCheckTimeout">100</integer>
-    <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
+    <integer name="config_proximityCheckTimeout">3000</integer>
+    <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
 
     <!-- BurnIn protection. This should be enabled on devices that have OLED displays -->
     <bool name="config_enableBurnInProtection">true</bool>
@@ -79,8 +79,5 @@
 
     <!-- Whether key handler sends intent when changing slider position -->
     <string name="config_alertSliderIntent">com.oneplus.extras.DeviceSettings.UPDATE_SLIDER_POSITION</string>
-
-    <!-- Defines the custom pickup sensor used by various OEMs like OnePlus-->
-    <string name="config_dozePickupSensorType">com.oneplus.sensor.pickup</string>
 
 </resources>
