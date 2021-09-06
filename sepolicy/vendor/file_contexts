@@ -48,11 +48,6 @@
 # Lights
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service.oneplus_msm8998    u:object_r:hal_light_default_exec:s0
 
-# Keylayout
-/vendor/usr/keylayout/fpc1020.kl                                u:object_r:vendor_keylayout_file:s0
-/vendor/usr/keylayout/synaptics.kl                              u:object_r:vendor_keylayout_file:s0
-/vendor/usr/keylayout/synaptics_s3320.kl                        u:object_r:vendor_keylayout_file:s0
-
 # Param
 /(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.param@1\.0-service    u:object_r:hal_param_default_exec:s0
 
