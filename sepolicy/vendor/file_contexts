@@ -11,6 +11,7 @@
 
 # Devices
 /dev/dash                                                       u:object_r:dash_device:s0
+/dev/param                                                      u:object_r:param_device:s0
 
 # Display Mode
 /sys/devices/virtual/graphics/fb0/oneplus_mode                  u:object_r:sysfs_dm:s0
