@@ -65,6 +65,7 @@ vendor.qcom.bluetooth.soc=cherokee
 
 # Camera
 vendor.camera.aux.packagelist=com.oneplus.camera,org.lineageos.snap,com.google.android.Pixel2ModUrnyx05
+persist.vendor.camera.gyro.disable=0
 
 # CNE
 persist.vendor.cne.feature=1
